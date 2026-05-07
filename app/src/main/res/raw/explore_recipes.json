@@ -1,0 +1,30 @@
+[
+  {
+    "id": 101,
+    "title": "Chocolate Chip Cookies",
+    "description": "Soft cookies with crispy edges.",
+    "ingredients": [
+      "Flour 300 g",
+      "Butter 225 g",
+      "Brown Sugar 200 g",
+      "Chocolate Chips 250 g",
+      "Eggs 2"
+    ],
+    "instructions": "Cream butter and sugar. Add eggs. Mix in flour and chocolate chips. Bake at 350°F for 10-12 minutes.",
+    "shareLink": "https://recipeapp.demo/share/chocolate-chip-cookies"
+  },
+  {
+    "id": 102,
+    "title": "Banana Bread",
+    "description": "Simple sweet banana bread.",
+    "ingredients": [
+      "Bananas 3",
+      "Flour 250 g",
+      "Sugar 150 g",
+      "Eggs 2",
+      "Butter 100 g"
+    ],
+    "instructions": "Mash bananas. Mix with butter, sugar, eggs, and flour. Bake at 350°F for 50-60 minutes.",
+    "shareLink": "https://recipeapp.demo/share/banana-bread"
+  }
+]

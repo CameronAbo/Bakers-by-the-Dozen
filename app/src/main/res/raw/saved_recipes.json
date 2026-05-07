@@ -1,0 +1,15 @@
+[
+  {
+    "id": 1,
+    "title": "Neapolitan Pizza Dough",
+    "description": "Classic pizza dough meant for a wood fired oven.",
+    "ingredients": [
+      "Flour 950 g",
+      "Chilled Water 545 g",
+      "Dry Active Yeast 1.5 g",
+      "Sea Salt 24 g"
+    ],
+    "instructions": "Pour the salt into the water and stir until dissolved. Add half the flour and mix. Add yeast and the rest of the flour. Knead until smooth.",
+    "shareLink": "https://recipeapp.demo/share/neapolitan-pizza"
+  }
+]

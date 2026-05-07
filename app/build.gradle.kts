@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.material.v1120)
     implementation(libs.androidx.recyclerview)
+    implementation(libs.gson)
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)

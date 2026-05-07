@@ -30,8 +30,12 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+        RecipeRepository.loadRecipes(this)
+
+        val recipes = RecipeRepository.getSavedRecipes()
         val recyclerView = findViewById<RecyclerView>(R.id.recipeRecyclerView)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val exploreRecipes = RecipeRepository.getExploreRecipes()
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = RecipeAdapter(recipes) { recipe ->
