@@ -7,7 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class RecipeAdapter(
-    private val recipes: List<Recipe>
+    private val recipes: List<Recipe>,
+    private val onRecipeClick: (Recipe) -> Unit
 ) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -27,6 +28,9 @@ class RecipeAdapter(
 
         holder.title.text = recipe.title
         holder.description.text = recipe.description
+        holder.itemView.setOnClickListener {
+            onRecipeClick(recipe)
+        }
     }
 
     override fun getItemCount(): Int {

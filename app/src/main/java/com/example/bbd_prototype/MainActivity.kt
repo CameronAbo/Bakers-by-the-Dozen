@@ -1,6 +1,7 @@
 package com.example.bbd_prototype
 
 import android.os.Bundle
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,7 +34,16 @@ class MainActivity : AppCompatActivity() {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = RecipeAdapter(recipes)
+        recyclerView.adapter = RecipeAdapter(recipes) { recipe ->
+            val intent = Intent(this, RecipeDetailActivity::class.java)
+
+            intent.putExtra("title", recipe.title)
+            intent.putExtra("description", recipe.description)
+            intent.putStringArrayListExtra("ingredients", ArrayList(recipe.ingredients))
+            intent.putExtra("instructions", recipe.instructions)
+
+            startActivity(intent)
+        }
 
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
