@@ -362,26 +362,6 @@ fun RecipeDialog(
 }
 
 @Composable
-fun ExploreScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Explore Recipes",
-            style = MaterialTheme.typography.headlineMedium
-        )
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        Text("This screen can later show recipe suggestions or API results.")
-    }
-}
-
-@Composable
 fun ConversionDemoDialog(
     recipe: Recipe,
     onDismiss: () -> Unit
