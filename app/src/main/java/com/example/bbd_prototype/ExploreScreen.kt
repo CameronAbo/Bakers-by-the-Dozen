@@ -13,6 +13,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -21,6 +22,7 @@ import androidx.compose.ui.unit.dp
 data class Post(
     val id: Int,
     val author: String,
+    val authorPfpRes: Int,
     val description: String,
     val likes: Int,
     val tags: List<String> = emptyList(),
@@ -30,10 +32,10 @@ data class Post(
 @Composable
 fun ExploreScreen() {
     val dummyPosts = listOf(
-        Post(1, "C-Bread", "Cinnamon Quick Bread\nCinnamon quick bread can be eaten as an indulgent breakfast, a cozy midday treat or a warming dessert. \n-Ingredients: Flour, Sugar, Buttermilk, Cinnamon", 124, listOf("Cinnamon", "Baking", "Bread"), R.drawable.post_example_image1),
-        Post(2, "CookieMan", "Lemon Pound Cake Muffins\nThese sweet, zingy lemon pound cake muffins are like decadent, moist cakes in individual portions. Eat them like muffins, serve them with fruit, anything goes!\n-Ingredients: Butter, Sugar, Eggs, Sour cream, Vanilla Extract, Lemon Extract, Flour, Salt, Baking Soda, Lemon Juice", 89, listOf("Muffin", "PoundCake", "LemonTaste"), R.drawable.post_example_image2),
-        Post(3, "PastryGuyDude", "Pumpkin Scones\nThese pumpkin scones are tender and moist, making them a truly delightful fall breakfast treat.\n-Ingredients: Flour, Brown Sugar, Baking Powder, Pumpkin Pie Spice, Ground Cinnamon, Baking Soda, Salt, Butter, Large Eggs, Canned Pumpking, 2% Milk", 256, listOf("Pumpkin", "Pastry"), R.drawable.post_example_image3),
-        Post(4, "PizzaButIfPastry", "Banana Beignets\nThese mini beignets are so easy and so good, you may find yourself buying extra bananas on purpose.\n-Ingredients: Sugar, Brown Sugar, Cinnamon, Cake Flour, Baking Powder, Egg, Bananas, Milk, Canola Oil", 412, listOf("Beignet", "Snack", "Bite-Sized"), R.drawable.post_example_image4)
+        Post(1, "C-Bread", R.drawable.pfp_example_image1, "Cinnamon Quick Bread\nCinnamon quick bread can be eaten as an indulgent breakfast, a cozy midday treat or a warming dessert. \n-Ingredients: Flour, Sugar, Buttermilk, Cinnamon", 124, listOf("Cinnamon", "Baking", "Bread"), R.drawable.post_example_image1),
+        Post(2, "CookieMan", R.drawable.pfp_example_image2, "Lemon Pound Cake Muffins\nThese sweet, zingy lemon pound cake muffins are like decadent, moist cakes in individual portions. Eat them like muffins, serve them with fruit, anything goes!\n-Ingredients: Butter, Sugar, Eggs, Sour cream, Vanilla Extract, Lemon Extract, Flour, Salt, Baking Soda, Lemon Juice", 89, listOf("Muffin", "PoundCake", "LemonTaste"), R.drawable.post_example_image2),
+        Post(3, "PastryGuyDude", R.drawable.pfp_example_image3, "Pumpkin Scones\nThese pumpkin scones are tender and moist, making them a truly delightful fall breakfast treat.\n-Ingredients: Flour, Brown Sugar, Baking Powder, Pumpkin Pie Spice, Ground Cinnamon, Baking Soda, Salt, Butter, Large Eggs, Canned Pumpking, 2% Milk", 256, listOf("Pumpkin", "Pastry"), R.drawable.post_example_image3),
+        Post(4, "PizzaButIfPastry", R.drawable.pfp_example_image4, "Banana Beignets\nThese mini beignets are so easy and so good, you may find yourself buying extra bananas on purpose.\n-Ingredients: Sugar, Brown Sugar, Cinnamon, Cake Flour, Baking Powder, Egg, Bananas, Milk, Canola Oil", 412, listOf("Beignet", "Snack", "Bite-Sized"), R.drawable.post_example_image4)
     )
 
     Column(
@@ -75,11 +77,14 @@ fun PostCard(post: Post) {
                     .padding(12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Dummy Avatar
-                Box(
+                // Profile Picture
+                Image(
+                    painter = painterResource(id = post.authorPfpRes),
+                    contentDescription = "Author profile picture",
                     modifier = Modifier
                         .size(32.dp)
-                        .background(Color.Gray, shape = RoundedCornerShape(16.dp))
+                        .clip(RoundedCornerShape(16.dp)),
+                    contentScale = ContentScale.Crop
                 )
                 Spacer(modifier = Modifier.width(12.dp))
                 Text(
