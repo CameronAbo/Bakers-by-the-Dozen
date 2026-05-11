@@ -363,21 +363,104 @@ fun RecipeDialog(
 
 @Composable
 fun ExploreScreen() {
+    var savedRecipeName by remember { mutableStateOf<String?>(null) }
+
+    val exploreRecipes = listOf(
+        Recipe(
+            id = 2,
+            title = "Chocolate Chip Cookies",
+            description = "Classic soft cookies with chocolate chips.",
+            ingredients = listOf("Flour", "Sugar", "Butter", "Eggs", "Chocolate chips"),
+            instructions = "Mix ingredients, scoop dough, and bake until golden."
+        ),
+        Recipe(
+            id = 3,
+            title = "Banana Bread",
+            description = "Simple homemade banana bread.",
+            ingredients = listOf("Bananas", "Flour", "Sugar", "Eggs", "Butter"),
+            instructions = "Mash bananas, mix batter, and bake in a loaf pan."
+        ),
+        Recipe(
+            id = 4,
+            title = "Vanilla Cupcakes",
+            description = "Light cupcakes for parties and events.",
+            ingredients = listOf("Flour", "Sugar", "Butter", "Eggs", "Vanilla"),
+            instructions = "Mix batter, pour into cupcake liners, and bake."
+        )
+    )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(24.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
             text = "Explore Recipes",
             style = MaterialTheme.typography.headlineMedium
         )
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Text(
+            text = "Discover public recipes and save them to your collection.",
+            style = MaterialTheme.typography.bodyMedium
+        )
 
-        Text("This screen can later show recipe suggestions or API results.")
+        exploreRecipes.forEach { recipe ->
+            Card(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Text(
+                        text = recipe.title,
+                        style = MaterialTheme.typography.titleLarge
+                    )
+
+                    Text(
+                        text = recipe.description,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+
+                    Text(
+                        text = "Ingredients: ${recipe.ingredients.joinToString(", ")}",
+                        style = MaterialTheme.typography.bodySmall
+                    )
+
+                    Button(
+                        onClick = {
+                            savedRecipeName = recipe.title
+                        }
+                    ) {
+                        Text("Save Recipe")
+                    }
+                }
+            }
+        }
+    }
+
+    if (savedRecipeName != null) {
+        AlertDialog(
+            onDismissRequest = {
+                savedRecipeName = null
+            },
+            title = {
+                Text("Recipe Saved")
+            },
+            text = {
+                Text("$savedRecipeName has been added to your saved recipes.")
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        savedRecipeName = null
+                    }
+                ) {
+                    Text("Done")
+                }
+            }
+        )
     }
 }
 
