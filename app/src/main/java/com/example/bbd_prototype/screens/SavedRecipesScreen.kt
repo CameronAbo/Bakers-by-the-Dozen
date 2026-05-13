@@ -18,7 +18,7 @@ import com.example.bbd_prototype.data.RecipeRepository
 
 
 @Composable
-fun SavedRecipesScreen() {
+fun SavedRecipesScreen( onRecipeClick: (Int) -> Unit ) {
     var recipes by remember { mutableStateOf(RecipeRepository.savedRecipes.toList()) }
     var recipeForConversion by remember { mutableStateOf<Recipe?>(null) }
     var recipeForSharing by remember { mutableStateOf<Recipe?>(null) }
@@ -57,6 +57,9 @@ fun SavedRecipesScreen() {
             items(recipes, key = { it.id }) { recipe ->
                 RecipeCard(
                     recipe = recipe,
+                    onClick = {
+                        onRecipeClick(recipe.id)
+                    },
                     onEdit = {
                         recipeBeingEdited = recipe
                         showDialog = true
