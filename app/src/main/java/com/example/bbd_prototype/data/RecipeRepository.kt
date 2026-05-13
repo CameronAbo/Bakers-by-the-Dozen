@@ -30,6 +30,21 @@ object RecipeRepository {
                 "Eggs 2"
             ),
             instructions = "Cream butter and sugar. Add eggs. Mix in flour and chocolate chips. Bake at 350°F for 10-12 minutes."
+        ),
+        Recipe(
+            id = 102,
+            title = "Chlassic Flan",
+            description = "Creamy caramel custard dessert.",
+            ingredients = listOf(
+                "1 cup sugar",
+                "1 Can condensed milk",
+                "1 can evaporated milk",
+                "2 cups heavy whipping cream",
+                "1 tbsp vanilla extract",
+                "4 eggs yolks",
+                "3 eggs whites"
+            ),
+            instructions = "Melt sugar into caramel. Mix remaining ingredients. Pour into pan and bake in water bath at 350°F for 1.5 hours."
         )
     )
 }
