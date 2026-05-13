@@ -1,6 +1,7 @@
 package com.example.bbd_prototype.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.clickable
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -10,6 +11,7 @@ import com.example.bbd_prototype.data.Recipe
 @Composable
 fun RecipeCard(
     recipe: Recipe,
+    onClick: () -> Unit,
     onEdit: () -> Unit,
     onDelete: () -> Unit,
     onConvert: () -> Unit,
@@ -19,6 +21,7 @@ fun RecipeCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
+            .clickable { onClick() }
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
