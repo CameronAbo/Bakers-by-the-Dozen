@@ -32,6 +32,7 @@ The platform combines recipe organization with social interaction, allowing user
 
 ## Example Recipes Included
 
+- Chocolate Chip Cookies
 - Flan
 - Banana Bread
 - Tres Leches Cake
