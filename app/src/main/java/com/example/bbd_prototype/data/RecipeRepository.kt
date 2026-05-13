@@ -33,7 +33,7 @@ object RecipeRepository {
         ),
         Recipe(
             id = 102,
-            title = "Chlassic Flan",
+            title = "Classic Flan",
             description = "Creamy caramel custard dessert.",
             ingredients = listOf(
                 "1 cup sugar",
@@ -45,6 +45,20 @@ object RecipeRepository {
                 "3 eggs whites"
             ),
             instructions = "Melt sugar into caramel. Mix remaining ingredients. Pour into pan and bake in water bath at 350°F for 1.5 hours."
-        )
+        ),
+        Recipe(
+            id = 103,
+            title = "Bannana Bread",
+            description = "Soft bannana bread with rich banana flavor.",
+            ingredients = listOf(
+                "3 ripe bananas",
+                "2 cups of flour",
+                "1 tsp baking soda",
+                "3/4 cups brown sugar",
+                "2 eggs",
+                "1 tsp vanilla extract"
+            ),
+            instructions = "Mash bananas. Mix wet and dry ingredients separately, then combine. Pout into load pan and bake at 350°F for 60 minutes."
+        ),
     )
 }
