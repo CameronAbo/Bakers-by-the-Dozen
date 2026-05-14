@@ -1,5 +1,6 @@
 package com.example.bbd_prototype.screens
 
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,6 +19,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.bbd_prototype.R
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+
+
 data class Post(
     val id: Int,
     val author: String,
@@ -30,6 +37,9 @@ data class Post(
 
 @Composable
 fun ExploreScreen() {
+    var savedRecipeName by androidx.compose.runtime.remember{
+        androidx.compose.runtime.mutableStateOf<String?>(null)
+    }
     val dummyPosts = listOf(
         Post(1, "C-Bread", R.drawable.pfp_example_image1, "Cinnamon Quick Bread\nCinnamon quick bread can be eaten as an indulgent breakfast, a cozy midday treat or a warming dessert. \n-Ingredients: Flour, Sugar, Buttermilk, Cinnamon", 124, listOf("Cinnamon", "Baking", "Bread"), R.drawable.post_example_image1),
         Post(2, "CookieMan", R.drawable.pfp_example_image2, "Lemon Pound Cake Muffins\nThese sweet, zingy lemon pound cake muffins are like decadent, moist cakes in individual portions. Eat them like muffins, serve them with fruit, anything goes!\n-Ingredients: Butter, Sugar, Eggs, Sour cream, Vanilla Extract, Lemon Extract, Flour, Salt, Baking Soda, Lemon Juice", 89, listOf("Muffin", "PoundCake", "LemonTaste"), R.drawable.post_example_image2),
@@ -54,8 +64,54 @@ fun ExploreScreen() {
         ) {
             items(dummyPosts) { post ->
                 PostCard(post = post)
+
+                Button(
+                    onClick = {
+                        val recipeToSave = com.example.bbd_prototype.data.Recipe(
+                            id = post.id + 100,
+                            title = post.description.substringBefore("\n"),
+                            description = post.description.substringAfter("\n").substringBefore("-Ingredients:"),
+                            ingredients = post.description
+                                .substringAfter("-Ingredients:")
+                                .split(",")
+                                .map { it.trim() },
+                            instructions = "Saved from Explore Recipes."
+                        )
+                        if (com.example.bbd_prototype.data.RecipeRepository.savedRecipes.none { it.id == recipeToSave.id }) {
+                            com.example.bbd_prototype.data.RecipeRepository.savedRecipes.add(recipeToSave)
+                        }
+                        savedRecipeName = recipeToSave.title
+                    },
+                    modifier = Modifier
+                        .padding(start = 12.dp, bottom = 12.dp)
+                ) {
+                    Text("Save Recipe")
             }
         }
+    }
+}
+
+    if (savedRecipeName != null) {
+        AlertDialog(
+            onDismissRequest = {
+                savedRecipeName = null
+            },
+            title = {
+                Text("Recipe Saved")
+            },
+            text = {
+                Text("$savedRecipeName has been added to your saved recipes.")
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        savedRecipeName = null
+                    }
+                ) {
+                    Text("Done")
+                }
+            }
+        )
     }
 }
 
