@@ -176,14 +176,14 @@ fun PostCard(post: Post) {
 
                 Spacer(modifier = Modifier.width(16.dp))
 
-                IconButton(onClick = { /* Repost action */ }) {
+                IconButton(onClick = { /* Iterate action */ }) {
                     Icon(
                         imageVector = Icons.Default.Share,
-                        contentDescription = "Repost"
+                        contentDescription = "Iterate"
                     )
                 }
                 Text(
-                    text = "Repost",
+                    text = "Iterate",
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
