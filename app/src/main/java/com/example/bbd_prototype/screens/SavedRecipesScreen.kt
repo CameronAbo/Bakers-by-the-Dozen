@@ -3,16 +3,15 @@ package com.example.bbd_prototype.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.background
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.bbd_prototype.components.RecipeCard
-import com.example.bbd_prototype.components.dialogs.ConversionDemoDialog
 import com.example.bbd_prototype.components.dialogs.RecipeDialog
-import com.example.bbd_prototype.components.dialogs.ShareRecipeDialog
-import com.example.bbd_prototype.data.Recipe
 import com.example.bbd_prototype.data.RecipeRepository
 
 
@@ -20,35 +19,67 @@ import com.example.bbd_prototype.data.RecipeRepository
 @Composable
 fun SavedRecipesScreen( onRecipeClick: (Int) -> Unit ) {
     var recipes by remember { mutableStateOf(RecipeRepository.savedRecipes.toList()) }
-    var recipeForConversion by remember { mutableStateOf<Recipe?>(null) }
-    var recipeForSharing by remember { mutableStateOf<Recipe?>(null) }
     var showDialog by remember { mutableStateOf(false) }
-    var recipeBeingEdited by remember { mutableStateOf<Recipe?>(null) }
 
 
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+            .padding(horizontal = 18.dp)
     ) {
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text(
+            text = "Good morning, baker!",
+            style = MaterialTheme.typography.headlineMedium,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+
+        Text(
+            text = "Your saved recipes, perfected over time.",
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+
+        Spacer(modifier = Modifier.height(18.dp))
+
+        OutlinedTextField(
+            value = "",
+            onValueChange = {},
+            placeholder = {
+                Text("Search saved recipes...")
+            },
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(18.dp),
+            singleLine = true
+        )
+
+        Spacer(modifier = Modifier.height(18.dp))
+
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = "Saved Recipes",
-                style = MaterialTheme.typography.headlineMedium
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onBackground
             )
 
             Button(
                 onClick = {
-                    recipeBeingEdited = null
                     showDialog = true
-                }
+                },
+                shape = RoundedCornerShape(18.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                )
             ) {
-                Text("Add")
+                Text("+ Add")
             }
+
         }
 
         LazyColumn(
@@ -59,19 +90,6 @@ fun SavedRecipesScreen( onRecipeClick: (Int) -> Unit ) {
                     recipe = recipe,
                     onClick = {
                         onRecipeClick(recipe.id)
-                    },
-                    onEdit = {
-                        recipeBeingEdited = recipe
-                        showDialog = true
-                    },
-                    onDelete = {
-                        recipes = recipes.filter { it.id != recipe.id }
-                    },
-                    onConvert = {
-                        recipeForConversion = recipe
-                    },
-                    onShare = {
-                        recipeForSharing = recipe
                     }
                 )
             }
@@ -80,35 +98,16 @@ fun SavedRecipesScreen( onRecipeClick: (Int) -> Unit ) {
 
     if (showDialog) {
         RecipeDialog(
-            recipe = recipeBeingEdited,
+            recipe = null,
             onDismiss = {
                 showDialog = false
             },
             onSave = { savedRecipe ->
-                recipes = if (recipeBeingEdited == null) {
-                    val newId = (recipes.maxOfOrNull { it.id } ?: 0) + 1
-                    recipes + savedRecipe.copy(id = newId)
-                } else {
-                    recipes.map {
-                        if (it.id == savedRecipe.id) savedRecipe else it
-                    }
-                }
+                val newId = (recipes.maxOfOrNull { it.id } ?: 0) + 1
+                recipes = recipes + savedRecipe.copy(id = newId)
 
                 showDialog = false
             }
-        )
-    }
-    recipeForConversion?.let { recipe ->
-        ConversionDemoDialog(
-            recipe = recipe,
-            onDismiss = { recipeForConversion = null }
-        )
-    }
-
-    recipeForSharing?.let { recipe ->
-        ShareRecipeDialog(
-            recipe = recipe,
-            onDismiss = { recipeForSharing = null }
         )
     }
 }
